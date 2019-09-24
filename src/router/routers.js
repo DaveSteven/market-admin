@@ -1,0 +1,119 @@
+import Main from '@/base/main'
+
+export default [
+    {
+        path: '/',
+        name: 'Login',
+        meta: {
+            title: '欢迎登录',
+            hideInMenu: true
+        },
+        component: () => import('@/view/login')
+    },
+    {
+        name: 'Admin',
+        component: Main,
+        meta: {
+            notCache: true
+        },
+        children: [
+            {
+                path: '/home',
+                name: 'adminHome',
+                meta: {
+                    title: '首页',
+                    icon: 'md-home'
+                },
+                component: () => import('@/view/home')
+            }
+        ]
+    },
+    {
+        name: 'Goods',
+        meta: {
+            title: '商品管理',
+            icon: 'md-archive'
+        },
+        component: Main,
+        children: [
+            {
+                path: '/goods/category',
+                name: 'goodsCategory',
+                meta: {
+                  title: '商品分类'
+                },
+                component: () => import('@/view/category')
+            },
+            {
+                path: '/goods/list',
+                name: 'goodsList',
+                meta: {
+                  title: '商品列表'
+                },
+                component: () => import('@/view/goods')
+            }
+        ]
+    },
+    {
+        name: 'Stock',
+        meta: {
+            title: '库存管理',
+            icon: 'md-filing'
+        },
+        component: Main,
+        children: [
+            {
+                path: '/stock/list',
+                name: 'stockList',
+                meta: {
+                    title: '库存列表'
+                },
+                component: () => import('@/view/stock')
+            },
+            {
+                path: '/inventory/list',
+                name: 'inventoryList',
+                meta: {
+                    title: '进货记录'
+                },
+                component: () => import('@/view/inventory')
+            }
+        ]
+    },
+    {
+        name: 'Order',
+        meta: {
+            title: '订单管理'
+        },
+        component: Main,
+        children: [
+            {
+                path: '/order/list',
+                name: 'orderList',
+                meta: {
+                    title: '订单列表',
+                    icon: 'ios-list-box'
+                },
+                component: () => import('@/view/order')
+            }
+        ]
+    },
+    {
+        name: 'Supplier',
+        meta: {
+            title: '供应商管理'
+        },
+        component: Main,
+        children: [
+            {
+                path: '/supplier/list',
+                name: 'supplierList',
+                meta: {
+                    title: '供应商管理',
+                    icon: 'md-people'
+                },
+                component: () => import('@/view/supplier')
+            }
+        ]
+    }
+]
