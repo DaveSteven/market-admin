@@ -19,7 +19,7 @@
                         </Input>
                     </FormItem>
                     <FormItem>
-                        <Button type="primary" long @click="handleLogin">登录</Button>
+                        <Button type="primary" long @click="handleSubmit">登录</Button>
                     </FormItem>
                 </Form>
             </Card>
@@ -27,6 +27,8 @@
     </Row>
 </template>
 <script>
+    import { mapActions } from 'vuex'
+
     export default {
         data() {
             return {
@@ -37,9 +39,19 @@
             }
         },
         methods: {
-            handleLogin() {
-                this.$router.push({
-                    path: '/home'
+            ...mapActions([
+                'handleLogin',
+                'getUserInfo'
+            ]),
+            handleSubmit() {
+                this.handleLogin({
+                    ...this.loginForm
+                }).then(res => {
+                    this.getUserInfo().then(res => {
+                        this.$router.push({
+                            name: this.$config.homeName
+                        })
+                    })
                 })
             }
         }

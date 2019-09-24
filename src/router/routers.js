@@ -3,6 +3,14 @@ import Main from '@/base/main'
 export default [
     {
         path: '/',
+        name: '/',
+        redirect: '/login',
+        meta: {
+            hideInMenu: true
+        }
+    },
+    {
+        path: '/login',
         name: 'Login',
         meta: {
             title: '欢迎登录',
@@ -12,7 +20,7 @@ export default [
     },
     {
         path: '/home',
-        name: 'Admin',
+        name: 'Home',
         component: Main,
         meta: {
             notCache: true
@@ -20,7 +28,7 @@ export default [
         children: [
             {
                 path: '/dashboard',
-                name: 'adminHome',
+                name: 'dashboard',
                 meta: {
                     title: '首页',
                     icon: 'md-home'
