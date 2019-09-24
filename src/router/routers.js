@@ -11,6 +11,7 @@ export default [
         component: () => import('@/view/login')
     },
     {
+        path: '/home',
         name: 'Admin',
         component: Main,
         meta: {
@@ -18,7 +19,7 @@ export default [
         },
         children: [
             {
-                path: '/home',
+                path: '/dashboard',
                 name: 'adminHome',
                 meta: {
                     title: '首页',
@@ -29,6 +30,7 @@ export default [
         ]
     },
     {
+        path: '/goods',
         name: 'Goods',
         meta: {
             title: '商品管理',
@@ -55,6 +57,7 @@ export default [
         ]
     },
     {
+        path: '/stock',
         name: 'Stock',
         meta: {
             title: '库存管理',
@@ -81,6 +84,7 @@ export default [
         ]
     },
     {
+        path: '/order',
         name: 'Order',
         meta: {
             title: '订单管理'
@@ -99,6 +103,7 @@ export default [
         ]
     },
     {
+        path: '/supplier',
         name: 'Supplier',
         meta: {
             title: '供应商管理'

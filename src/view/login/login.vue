@@ -39,7 +39,7 @@
         methods: {
             handleLogin() {
                 this.$router.push({
-                    path: '/admin/home'
+                    path: '/home'
                 })
             }
         }
