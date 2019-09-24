@@ -7,6 +7,9 @@
             <template slot-scope="{ row }" slot="payment">
                 <Tag :color="payment[row.payment].color">{{ payment[row.payment].name }}</Tag>
             </template>
+            <template slot-scope="{ row }" slot="username">
+                {{ getUsername(row) }}
+            </template>
             <template slot-scope="{ row }" slot="action">
                 <Button type="success" @click="getOrderDetail(row.id)">订单信息</Button>
             </template>
@@ -22,6 +25,7 @@
 </template>
 <script>
     import { getOrderList, getOrderInfo } from '../../api/order'
+    import {getUserList} from '../../api/user'
 
     export default {
         data () {
@@ -42,6 +46,10 @@
                     {
                         title: '创建时间',
                         key: 'createTime'
+                    },
+                    {
+                        title: '收银',
+                        slot: 'username'
                     },
                     {
                         title: '操作',
@@ -84,6 +92,7 @@
                         slot: 'total'
                     }
                 ],
+                userList: [],
                 orderDetail: [],
                 orderVisible: false
             }
@@ -92,7 +101,7 @@
           this.fetchData()
         },
         methods: {
-            fetchData () {
+            getOrderList () {
                 getOrderList({
                     start: (this.start - 1) * this.limit,
                     limit: this.limit
@@ -101,7 +110,17 @@
                     this.total = res.data.total
                 })
             },
-            getOrderDetail(orderId) {
+            async fetchData () {
+                const userResult = await getUserList();
+                const orderResult = await getOrderList({
+                    start: (this.start - 1) * this.limit,
+                    limit: this.limit
+                })
+                this.userList = userResult.data;
+                this.data = orderResult.data.list;
+                this.total = orderResult.data.total;
+            },
+            getOrderDetail (orderId) {
                 getOrderInfo({
                     orderId
                 }).then(res => {
@@ -109,12 +128,18 @@
                     this.orderVisible = true
                 })
             },
-            getTotal(data) {
+            getTotal (data) {
                 return data.price * data.amount
             },
             toPage (page) {
                 this.start = page
-                this.fetchData()
+                this.getOrderList()
+            },
+            getUsername (data) {
+                const user = this.userList.find(item => {
+                    return item.id === data.userId
+                })
+                return user.name
             }
         }
     }
