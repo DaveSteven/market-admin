@@ -12,7 +12,7 @@
                         </Input>
                     </FormItem>
                     <FormItem prop="password">
-                        <Input v-model="loginForm.password">
+                        <Input v-model="loginForm.password" type="password">
                             <span slot="prepend">
                                 <Icon type="md-lock"></Icon>
                             </span>

@@ -128,5 +128,25 @@ export default [
                 component: () => import('@/view/supplier')
             }
         ]
+    },
+    {
+        path: '/user',
+        name: 'Admin',
+        meta: {
+            title: '用户管理',
+            icon: 'ios-people'
+        },
+        component: Main,
+        children: [
+            {
+                path: '/user/list',
+                name: 'AdminList',
+                meta: {
+                    title: '用户管理',
+                    icon: 'ios-people'
+                },
+                component: () => import('@/view/user')
+            }
+        ]
     }
 ]

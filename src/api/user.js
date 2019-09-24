@@ -6,7 +6,7 @@ export const login = ({ username, password }) => {
     password
   }
   return axios.request({
-    url: '/admin/login',
+    url: '/user/admin/login',
     data,
     method: 'post'
   })
@@ -14,7 +14,7 @@ export const login = ({ username, password }) => {
 
 export const getUserInfo = () => {
   return axios.request({
-    url: '/admin/getInfo',
+    url: '/user/getInfo',
     method: 'post'
   })
 }
@@ -22,6 +22,22 @@ export const getUserInfo = () => {
 export const logout = (token) => {
   return axios.request({
     url: 'logout',
+    method: 'post'
+  })
+}
+
+export const addUser = ({ username, password, role, name }) => {
+  const data = { username, password, role, name }
+  return axios.request({
+    url: '/user/add',
+    method: 'post',
+    data
+  })
+}
+
+export const getUserList = () => {
+  return axios.request({
+    url: '/user/getList',
     method: 'post'
   })
 }
