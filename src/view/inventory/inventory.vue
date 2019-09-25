@@ -16,6 +16,9 @@
             <template slot-scope="{ row }" slot="price">
                 ¥{{ row.price | parseMoney }}
             </template>
+            <template slot-scope="{ row }" slot="total">
+                ¥{{ row.price * row.amount | parseMoney }}
+            </template>
         </Table>
         <Page :total="total" :page-size="limit" @on-change="toPage"></Page>
     </Card>
@@ -48,6 +51,10 @@
                     {
                         title: '价格',
                         slot: 'price'
+                    },
+                    {
+                        title: '总计',
+                        slot: 'total'
                     },
                     {
                         title: '进货时间',

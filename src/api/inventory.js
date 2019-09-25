@@ -35,3 +35,21 @@ export const getInventoryList = ({ start = 0, limit = 0 }) => {
         data
     })
 }
+
+/**
+ * 获取入库单汇总
+ * @param start
+ * @param limit
+ * @returns {ClientRequest | * | never | Promise<AxiosResponse<T>> | ClientHttp2Stream}
+ */
+export const getInventoryCollect = ({ start = 0, limit = 0 }) => {
+    const data = {
+        start, limit
+    }
+
+    return axios.request({
+        url: '/inventory/getCollect',
+        method: 'post',
+        data
+    })
+}

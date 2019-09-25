@@ -23,7 +23,7 @@
                     </Select>
                 </FormItem>
                 <FormItem label="商品选择" prop="goodsId">
-                    <Select v-model="stockForm.goodsId" filterable>
+                    <Select v-model="stockForm.goodsId" filterable @on-change="goodsOnChange">
                         <Option v-for="item in goodsList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                     </Select>
                 </FormItem>
@@ -48,8 +48,7 @@
 <script>
     import {getSupplierList} from '../../api/supplier'
     import {getGoodsList} from '../../api/goods'
-    import {getStockList} from '../../api/stock'
-    import {addInventory} from '../../api/inventory'
+    import {addInventory, getInventoryCollect} from '../../api/inventory'
     export default {
         data () {
             return {
@@ -65,10 +64,6 @@
                     {
                         title: '库存',
                         key: 'amount'
-                    },
-                    {
-                        title: '更新时间',
-                        key: 'updateTime'
                     },
                     {
                         title: '操作',
@@ -112,7 +107,7 @@
             async fetchData () {
                 const goodsResult = await getGoodsList({})
                 const supplierResult = await getSupplierList({})
-                const stockResult = await getStockList({
+                const stockResult = await getInventoryCollect({
                     start: (this.start - 1) * this.limit,
                     limit: this.limit
                 })
@@ -165,16 +160,31 @@
                 this.stockModalVisible = true
             },
             getGoods (id) {
+                if (!id) {
+                    return '';
+                }
                 const goods = this.goodsList.find(item => {
                     return item.id === id
                 })
                 return goods.name
             },
             codeOnChange (code) {
+                if (!code) {
+                    return;
+                }
                 const goods = this.goodsList.find(item => {
                     return item.code === code
                 })
                 this.stockForm.goodsId = goods.id
+            },
+            goodsOnChange (id) {
+                if (!id) {
+                    return;
+                }
+                const goods = this.goodsList.find(item => {
+                    return item.id === id;
+                })
+                this.stockForm.code = goods.code
             },
             toPage (page) {
                 this.start = page
