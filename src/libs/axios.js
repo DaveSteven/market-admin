@@ -58,24 +58,22 @@ class HttpRequest {
     instance.interceptors.response.use(res => {
       this.destroy(url)
       const { data, status } = res
+      if (data.code === 10) {
+        Message.error(data.msg)
+        router.replace({
+          path: '/login',
+          query: {
+            redirect: router.currentRoute.fullPath
+          }
+        })
+        return Promise.reject(data)
+      }
       if (data.code !== 0) {
         Message.error(data.msg)
         return Promise.reject(data)
       }
       return { ...data, status }
     }, error => {
-      console.log(error)
-      // 未登录
-      // if (data.code === 10) {
-      //   store.state.commit('setToken', '')
-      //   router.replace({
-      //     path: '/login',
-      //     query: {
-      //       redirect: router.currentRoute.fullPath
-      //     }
-      //   })
-      //   return
-      // }
       this.destroy(url)
       addErrorLog(error.response)
       return Promise.reject(error)

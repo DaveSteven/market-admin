@@ -2,14 +2,20 @@
     <div>
         <Row class="total-preview">
             <Col :span="4">
-                <info-card shadow color="#19be6b" icon="md-remove-circle" :icon-size="36">
-                    <CountTo :end="444" count-class="count-style" />
-                    <p>今日收入</p>
+                <info-card shadow color="#19be6b" icon="md-add-circle" :icon-size="36">
+                    <CountTo :end="profits" :decimals="2" count-class="count-style" />
+                    <p>今日收益</p>
+                </info-card>
+            </Col>
+            <Col :span="4">
+                <info-card shadow color="#1c8aec" icon="md-remove-circle" :icon-size="36">
+                    <CountTo :end="soldNumber" count-class="count-style" />
+                    <p>售出商品</p>
                 </info-card>
             </Col>
             <Col :span="4">
                 <info-card shadow color="#ed4014" icon="md-remove-circle" :icon-size="36">
-                    <CountTo :end="4344" count-class="count-style" />
+                    <CountTo :end="expend" :decimals="2" count-class="count-style" />
                     <p>今日支出</p>
                 </info-card>
             </Col>
@@ -34,6 +40,8 @@
     import InfoCard from '_c/InfoCard'
     import CountTo from '_c/CountTo'
     import { ChartBar, ChartLine } from '_c/Charts'
+    import {getExpend, getIncome, getSold} from '../../api/statistics'
+    import {dateFormatter} from '../../libs/util'
 
     export default {
         components: {
@@ -125,7 +133,39 @@
                             data: [820, 645, 546, 745, 872, 624, 258]
                         }
                     ]
-                }
+                },
+                date: dateFormatter('yyyy-MM-dd'),
+                profits: 0,
+                expend: 0,
+                soldNumber: 0
+            }
+        },
+        created () {
+            this.getIncome()
+            this.getExpend()
+            this.getSold()
+        },
+        methods: {
+            getIncome () {
+                getIncome({
+                    date: this.date
+                }).then(res => {
+                    this.profits = res.data.profits
+                })
+            },
+            getExpend () {
+                getExpend({
+                    date: this.date
+                }).then(res => {
+                    this.expend = res.data.price
+                })
+            },
+            getSold () {
+                getSold({
+                    date: this.date
+                }).then(res => {
+                    this.soldNumber = res.data.amount
+                })
             }
         }
     }

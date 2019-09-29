@@ -367,3 +367,34 @@ export const getSerialNumber = (index, start, limit) => {
     const serialNumber = limit * (start - 1) + index + 1
     return zeroFill(serialNumber)
 }
+
+/**
+ * 日期格式化
+ * @param date
+ * @param type
+ * @returns {string}
+ */
+export const dateFormatter = (date, type) => {
+    if (!date) {
+        date = Date.now()
+    } else if (!type && isNaN(new Date(date).valueOf())) {
+        type = date
+        date = Date.now()
+    }
+    date = new Date(date)
+    const y = date.getFullYear()
+    const M = zeroFill(date.getMonth() + 1)
+    const d = zeroFill(date.getDate())
+    const H = zeroFill(date.getHours())
+    const m = zeroFill(date.getMinutes())
+    const s = zeroFill(date.getSeconds())
+
+    switch(type) {
+        case 'yyyy-MM-dd':
+            return `${y}-${M}-${d}`
+        case 'HH:mm:ss':
+            return `${H}:${m}:${s}`
+        default:
+            return `${y}-${M}-${d} ${H}:${m}:${s}`
+    }
+}
