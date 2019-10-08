@@ -19,28 +19,34 @@
                     <p>今日支出</p>
                 </info-card>
             </Col>
-        </Row>
-        <Row>
-            <Col :style="{marginBottom: '10px', padding: '10px'}">
-                <Card>
-                    <ChartBar style="height: 300px;" :value="barData" text="每日销售情况"></ChartBar>
-                </Card>
+            <Col :span="4">
+                <info-card shadow color="#ed4014" icon="md-remove-circle" :icon-size="36">
+                    <CountTo :end="stock" count-class="count-style" />
+                    <p>今日进货</p>
+                </info-card>
             </Col>
         </Row>
-        <Row>
-            <Col :style="{marginBottom: '10px', padding: '10px'}">
-                <Card>
-                    <ChartLine style="height: 500px;" :value="lineData" text="每日收入情况"></ChartLine>
-                </Card>
-            </Col>
-        </Row>
+<!--        <Row>-->
+<!--            <Col :style="{marginBottom: '10px', padding: '10px'}">-->
+<!--                <Card>-->
+<!--                    <ChartBar style="height: 300px;" :value="barData" text="每日销售情况"></ChartBar>-->
+<!--                </Card>-->
+<!--            </Col>-->
+<!--        </Row>-->
+<!--        <Row>-->
+<!--            <Col :style="{marginBottom: '10px', padding: '10px'}">-->
+<!--                <Card>-->
+<!--                    <ChartLine style="height: 500px;" :value="lineData" text="每日收入情况"></ChartLine>-->
+<!--                </Card>-->
+<!--            </Col>-->
+<!--        </Row>-->
     </div>
 </template>
 <script>
     import InfoCard from '_c/InfoCard'
     import CountTo from '_c/CountTo'
     import { ChartBar, ChartLine } from '_c/Charts'
-    import {getExpend, getIncome, getSold} from '../../api/statistics'
+    import {getExpend, getIncome, getSold, getStock} from '../../api/statistics'
     import {dateFormatter} from '../../libs/util'
 
     export default {
@@ -137,13 +143,15 @@
                 date: dateFormatter('yyyy-MM-dd'),
                 profits: 0,
                 expend: 0,
-                soldNumber: 0
+                soldNumber: 0,
+                stock: 0
             }
         },
         created () {
             this.getIncome()
             this.getExpend()
             this.getSold()
+            this.getStock()
         },
         methods: {
             getIncome () {
@@ -165,6 +173,13 @@
                     date: this.date
                 }).then(res => {
                     this.soldNumber = res.data.amount
+                })
+            },
+            getStock () {
+                getStock({
+                    date: this.date
+                }).then(res => {
+                    this.stock = res.data.amount;
                 })
             }
         }

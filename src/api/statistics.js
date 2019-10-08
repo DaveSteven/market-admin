@@ -44,3 +44,18 @@ export const getSold = ({ date }) => {
         data
     })
 }
+
+/**
+ * 获取进货情况
+ * @param date
+ * @returns {*|never|Promise<AxiosResponse<T>>|http.ClientRequest|ClientHttp2Stream}
+ */
+export const getStock = ({ date }) => {
+    const data = { date }
+
+    return axios.request({
+        url: '/statistics/getStock',
+        method: 'post',
+        data
+    })
+}
