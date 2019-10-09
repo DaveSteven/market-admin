@@ -8,19 +8,19 @@
                 </info-card>
             </Col>
             <Col :span="4">
-                <info-card shadow color="#1c8aec" icon="md-remove-circle" :icon-size="36">
-                    <CountTo :end="soldNumber" count-class="count-style" />
-                    <p>售出商品</p>
-                </info-card>
-            </Col>
-            <Col :span="4">
                 <info-card shadow color="#ed4014" icon="md-remove-circle" :icon-size="36">
                     <CountTo :end="expend" :decimals="2" count-class="count-style" />
                     <p>今日支出</p>
                 </info-card>
             </Col>
             <Col :span="4">
-                <info-card shadow color="#ed4014" icon="ios-filling" :icon-size="36">
+                <info-card shadow color="#1c8aec" icon="md-remove-circle" :icon-size="36">
+                    <CountTo :end="soldNumber" count-class="count-style" />
+                    <p>售出商品</p>
+                </info-card>
+            </Col>
+            <Col :span="4">
+                <info-card shadow color="#ff5a00" icon="ios-filing" :icon-size="36">
                     <CountTo :end="stock" count-class="count-style" />
                     <p>今日进货</p>
                 </info-card>
