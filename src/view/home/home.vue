@@ -20,7 +20,7 @@
                 </info-card>
             </Col>
             <Col :span="4">
-                <info-card shadow color="#ed4014" icon="md-remove-circle" :icon-size="36">
+                <info-card shadow color="#ed4014" icon="ios-filling" :icon-size="36">
                     <CountTo :end="stock" count-class="count-style" />
                     <p>今日进货</p>
                 </info-card>
