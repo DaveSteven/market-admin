@@ -26,9 +26,9 @@ export const getGoodsList = ({ start = 0, limit = 0 }) => {
  * @param type_id 分类id
  * @returns {http.ClientRequest | ClientHttp2Stream | never | *}
  */
-export const addGoods = ({ code, name, price, typeId }) => {
+export const addGoods = ({ code, name, price, categoryId }) => {
     const data = {
-        code, name, price, typeId
+        code, name, price, categoryId
     }
     return axios.request({
         url: '/goods/add',

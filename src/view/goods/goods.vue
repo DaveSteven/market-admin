@@ -26,7 +26,7 @@
                         <Option v-for="(item, index) in categoryList" :key="index" :value="item.id">{{ item.name }}</Option>
                     </Select>
                 </FormItem>
-                <FormItem prop="code" label="商品编码">
+                <FormItem prop="code" label="商品条码">
                     <Input v-model="goodsForm.code" icon="ios-barcode-outline" />
                 </FormItem>
                 <FormItem prop="name" label="商品名称">
@@ -68,7 +68,7 @@
                         slot: 'price'
                     },
                     {
-                        title: '商品编码',
+                        title: '商品条码',
                         key: 'code'
                     },
                     {
