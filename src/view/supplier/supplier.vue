@@ -47,9 +47,6 @@
                 formValidate: {
                     name: [
                         { required: true, message: '请输入供应商名称', trigger: 'blur' }
-                    ],
-                    phone: [
-                        { required: true, message: '请输入联系电话', trigger: 'blur' }
                     ]
                 },
                 supplierVisible: false,
