@@ -35,7 +35,7 @@
                 <FormItem label="数量" prop="amount">
                     <Input v-model.number="stockForm.amount" />
                 </FormItem>
-                <FormItem label="价格" prop="price">
+                <FormItem label="进价" prop="price">
                     <Input v-model="stockForm.price" />
                 </FormItem>
             </Form>
